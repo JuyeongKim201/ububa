@@ -1,0 +1,59 @@
+@font-face {
+    font-family: 'iceJaram-Rg';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/iceJaram-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GyeonggiBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    background-color: #F4F6F7;
+}
+
+.home {
+    margin-top: 10%;
+    text-align: center;
+}
+
+#ex {
+    font-family: 'iceJaram-Rg';
+    font-size: 23px;
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#main {
+    font-family: 'iceJaram-Rg';
+    font-size: 35px;
+}
+
+#st {
+    margin-left: 13px;
+    margin-right: 13px;
+    margin-top: 25px;
+    border: none;
+    background-color: #d3d3d3;
+    border-radius: 64px;
+    height: 35px;
+    width: 120px;
+    font-family: 'GyeonggiBatang';
+}
+
+#tag {
+    text-decoration-line: none;
+    text-decoration-color: rgb(0, 0, 0);
+
+}
+
+#pic {
+    max-width: 42px;
+    margin-left: -20px;
+}

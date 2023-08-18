@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../static/index.css">
+
+  <!-- 제이쿼리 import -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+  <title>어부바</title>
+
+  <div class="header">
+    <a href="/" id="tag">
+      <p id="name">어부바</p>
+    </a>
+  </div>
+
+<body>
+  <div class="content1">
+    <p id="date">2023.08.19</p>
+    <p id="today">오늘의 질문</p>
+    <img id="pic" src="/static/pic.png" alt="이미지">
+  </div>
+
+  <div class="content2">
+    <h4 id="que">평소에 가고 싶었던 여행지는?</h4>
+    <button onclick="handleRandomQue()" id="but">다른 질문에 답할래요</button>
+  </div>
+
+
+  <div class="content3">
+    <form id="answer-form" action="/today" method="post">
+      <input id="input" type="text" name="answerHere" placeholder="여기에 알려주세요">
+      <input id="sub" type="submit" value="제출">
+    </form>
+    <div id="next"> </div>
+
+    <p id="line">_______________________ </p>
+    <p id="warn">4일 이상 답변이 없을 시 자녀분께 알람이 갑니다 :) </p>
+
+    <script>
+      const que = ["어릴 적 친구들과 자주 했던 놀이는 무엇인가요?", "어릴 시절 제일 행복했던 경험은 무엇인가요?", "요새 취미는 무엇인가요?", "살면서 해본 경험 중, 내 자녀가 꼭 해봤으면 하는 경험은 무엇인가요?", "인생에서 가장 중요하게 생각하는 가치는 무엇인가요?", "오늘은 어떤 하루를 보내셨나요?", "자녀에게 해주고 싶은 인생 조언이 있다면 무엇인가요?", "어릴 적 꿈은 무엇이었나요?"];
+
+      const randomQue = document.querySelector("h4")
+      const button = document.querySelector("button");
+
+      function handleRandomQue() {
+        const randomIndex = Math.floor(Math.random() * que.length);
+
+        // 또 같은 질문이 나오지 않도록 하는 기능 추가
+        let queBefore = randomQue.innerText;
+        let queAfter = queBefore;
+
+        while (queBefore == queAfter) {
+          queAfter = que[randomIndex];
+        };
+        randomQue.innerText = queAfter;
+      }
+
+      $(document).ready(function () {
+        $('#answer-form').submit(function (event) {
+          event.preventDefault();
+          var tmp_question = $("#que").text(); // 질문 텍스트 가져오기
+          var tmp_answer = $('input[name="answerHere"]').val();
+
+          $.ajax({
+            type: "POST",
+            url: "/today",
+            data: {
+              userQuestion: tmp_question,
+              userAnswer: tmp_answer
+            },
+            success: function (response) {
+              console.log(response);
+              window.location.href = "/questions";
+            }
+          });
+        });
+      });
+    </script>
+  </div>
+
+
+
+
+</body>
+
+</html>

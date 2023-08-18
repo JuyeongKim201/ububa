@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../static/questions.css">
+
+  <!-- 제이쿼리 import -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <title>어부바</title>
+
+
+</head>
+
+<div class="header">
+  <a href="/" id="tag">
+    <p id="name">어부바</p>
+  </a>
+</div>
+
+<body>
+  <div class="content1">
+    <p id="q">오늘의 질문</p>
+    <div class="content2">
+      <div id="qToday"></div>
+      <br><br>
+      <div id="aToday"></div>
+
+      <br><br><br>
+
+      <p id="line">_______________________ </p>
+      <div class="content1">
+        <p id="q">지난 질문들</p>
+        <p id="line">아래 내용은 자녀분께 전달됩니다 :)</p>
+      </div>
+
+      <div class="content2">
+        <p id="q1">Q. 가장 좋아하는 음식과 그 이유는 무엇인가요? ( 2023.08.18 )</p>
+        <p id="a1"> 김치찌개. 매콤하고 시원한 것이 속을 풀어준다. 너네 할머니가 담가주신 김치로 먹는 게 참 맛있었는데 ^^ 이제는 김치 담그기가 힘들어... 이마트에서 사 먹어라 ㅋㅋㅋ</p>
+
+        <p id="q2">Q. 어릴 때 저는 어떤 아기였나요? ( 2023.08.17 )</p>
+        <p id="a2"> 맨날 울지만 세상에 하나밖에 없는 소중한 내새끼 ♥ 덜 울었으면 더 좋았으련만~~ </p>
+
+
+        <p id="q3">Q. 학창 시절 때 별명은 무엇이었나요? ( 2023.08.16 )</p>
+        <p id="a3"> 안경쟁이. 지금은 라섹을 해서 안경을 안 끼지만 나도 어릴 땐 시력이 안 좋아서 동그란 검정테 안경을 끼고 다녔는데.. 그때는 동글동글 모범생마냥 생겼었단다. 쌍수의 효과로 지금은
+          이미지
+          변신^^</p>
+        <p id="more"> 더보기 ></p>
+      </div>
+      <script>
+
+
+
+        $(document).ready(function () {
+          $('#this_week').hide();
+          showAnswer();
+        });
+
+        function showAnswer() {
+          $.ajax({
+            type: "GET",
+            url: "/questions/today",
+            success: function (response) {
+              res = response.split('\n')
+              console.log(res[0])
+              console.log(res[1])
+              let today_question = res[0]; // 저장된 질문 받아와서 담기
+              let today_answer = res[1]; // 저장된 답변 받아와서 담기
+              printAnswer(today_question, today_answer);
+            }
+          });
+        };
+
+
+        function printAnswer(today_question, today_answer) {
+          let tmp_html_que = `${today_question}`; // 질문 html에 넣어주기
+          let tmp_html_ans = `${today_answer}`; // 답변 html에 넣어주기
+          $("#qToday").html(tmp_html_que); // 기존 내용을 새로운 내용으로 대체
+          $("#aToday").html(tmp_html_ans);
+        }
+
+      </script>
+
+</body>
